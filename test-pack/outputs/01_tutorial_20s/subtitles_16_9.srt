@@ -1,0 +1,24 @@
+1
+00:00:00,000 --> 00:00:03,200
+In this tutorial you will learn how
+
+2
+00:00:03,200 --> 00:00:07,200
+to set up a Python virtual environment
+in under two minutes.
+
+3
+00:00:07,200 --> 00:00:10,500
+First, open your terminal and type
+
+4
+00:00:10,500 --> 00:00:13,000
+python -m venv .venv
+
+5
+00:00:13,000 --> 00:00:17,100
+Then activate it with source .venv/bin/activate
+
+6
+00:00:17,100 --> 00:00:19,800
+on Mac or Linux.

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: broll-engine
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///broll.db
+      - key: GROQ_API_KEY
+        sync: false
+      - key: PIXABAY_API_KEY
+        sync: false

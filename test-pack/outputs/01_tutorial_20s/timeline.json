@@ -1,0 +1,77 @@
+{
+  "job_id": "mock-job-tutorial-001",
+  "total_duration": 19.8,
+  "scenes": [
+    {
+      "index": 0,
+      "text": "In this tutorial you will learn how to set up a Python virtual environment in under two minutes.",
+      "start": 0.0,
+      "end": 7.2,
+      "clip": {
+        "source": "pixabay",
+        "id": "pixabay:4521098",
+        "url": "https://cdn.pixabay.com/vimeo/mock-terminal-coding.mp4",
+        "page_url": "https://pixabay.com/videos/terminal-coding-python-4521098/",
+        "license": "Pixabay Content License",
+        "commercial_use": true,
+        "attribution": "Video by developer_footage on Pixabay",
+        "is_ai_generated": false,
+        "duration_used": 7.2
+      },
+      "reason_chosen": "text=3.9, vlm=4.2 — terminal/coding footage matches Python tutorial",
+      "relevance_score": 4.1,
+      "vlm_score": 4.2,
+      "source_rule_fired": "pixabay_video_score_gte_threshold",
+      "alternatives_rejected": [
+        {"candidate_id": "pixabay:3312056", "reason": "outscored (final_score=2.8)", "score": 2.8}
+      ],
+      "warnings": []
+    },
+    {
+      "index": 1,
+      "text": "First, open your terminal and type python dash m venv dot venv.",
+      "start": 7.2,
+      "end": 13.0,
+      "clip": {
+        "source": "pixabay",
+        "id": "pixabay:5203441",
+        "url": "https://cdn.pixabay.com/vimeo/mock-hands-typing.mp4",
+        "page_url": "https://pixabay.com/videos/typing-keyboard-hands-5203441/",
+        "license": "Pixabay Content License",
+        "commercial_use": true,
+        "attribution": "Video by tech_clips on Pixabay",
+        "is_ai_generated": false,
+        "duration_used": 5.8
+      },
+      "reason_chosen": "text=4.1, vlm=4.5 — hands typing on keyboard",
+      "relevance_score": 4.3,
+      "vlm_score": 4.5,
+      "source_rule_fired": "pixabay_video_score_gte_threshold",
+      "alternatives_rejected": [],
+      "warnings": []
+    },
+    {
+      "index": 2,
+      "text": "Then activate it with source dot venv slash bin slash activate on Mac or Linux.",
+      "start": 13.0,
+      "end": 19.8,
+      "clip": {
+        "source": "pixabay",
+        "id": "pixabay:4891203",
+        "url": "https://cdn.pixabay.com/vimeo/mock-macbook-coding.mp4",
+        "page_url": "https://pixabay.com/videos/macbook-laptop-coding-4891203/",
+        "license": "Pixabay Content License",
+        "commercial_use": true,
+        "attribution": "Video by creative_footage on Pixabay",
+        "is_ai_generated": false,
+        "duration_used": 6.8
+      },
+      "reason_chosen": "text=3.7, vlm=4.0 — laptop/terminal environment",
+      "relevance_score": 3.9,
+      "vlm_score": 4.0,
+      "source_rule_fired": "pixabay_video_score_gte_threshold",
+      "alternatives_rejected": [],
+      "warnings": []
+    }
+  ]
+}

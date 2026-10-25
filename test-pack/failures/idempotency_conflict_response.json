@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "input": "POST /api/v1/broll/jobs — same Idempotency-Key, different body",
+    "http_status": 409,
+    "timestamp": "2026-10-20T14:26:44Z"
+  },
+  "error": {
+    "code": "IDEMPOTENCY_KEY_CONFLICT",
+    "message": "Idempotency-Key was already used with a different request body. Use a new key for a different request.",
+    "retryable": false,
+    "details": {
+      "idempotency_key": "my-key-abc"
+    }
+  }
+}

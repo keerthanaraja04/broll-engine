@@ -1,0 +1,13 @@
+{
+  "script": "Welcome to this comprehensive guide on the history of the internet. The story begins in 1969 with ARPANET, a US Department of Defense project that connected four university computers. This experimental network proved that computers could communicate across long distances using packet switching, a revolutionary idea at the time. Throughout the nineteen seventies, the network grew slowly but steadily. Email was invented in 1971 by Ray Tomlinson, who sent the first message between two machines sitting side by side. The TCP/IP protocol suite was standardised in 1983, creating the technical foundation that still underpins the internet today. In 1991 Tim Berners-Lee published the first website, introducing the World Wide Web to the world. The web made the internet accessible to ordinary people, not just researchers and engineers. The nineteen nineties brought the dot-com boom, a period of explosive growth and wild speculation. Companies with no revenue were valued at billions of dollars. Many failed spectacularly when the bubble burst in 2000. But the infrastructure they built remained, and a new wave of companies rose from the rubble. Google, founded in 1998, changed how we find information. Then came social media. Facebook launched in 2004, YouTube in 2005, Twitter in 2006. The smartphone revolution, triggered by the iPhone in 2007, put the internet in everyone's pocket. Today there are over five billion internet users worldwide. The network that started with four computers now connects billions of devices. Artificial intelligence is the next transformation. Machine learning models trained on vast datasets are beginning to reshape how we search, communicate, create and even think. The internet's story is far from over.",
+  "aspect_ratios": ["16:9"],
+  "style": "documentary",
+  "captions": {"burn_in": false, "srt": true},
+  "_meta": {
+    "label": "10_long_5min",
+    "type": "educational_documentary",
+    "duration_hint": "~5min",
+    "accent": "british_en",
+    "notes": "Long-form, tests scene planning with many scenes, chunking if audio exceeds 24MB"
+  }
+}

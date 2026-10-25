@@ -1,0 +1,241 @@
+version: "3.9"
+
+# =============================================================================
+# broll-engine docker-compose
+#
+# Services:
+#   api            — FastAPI HTTP server
+#   worker         — ARQ background worker
+#   postgres       — PostgreSQL 16
+#   redis          — Redis 7
+#   minio          — MinIO object storage (S3-compatible)
+#   minio-init     — one-shot bucket creation job
+#   mock-providers — Flask app faking Groq + Pixabay REST APIs
+# =============================================================================
+
+x-app-env: &app-env
+  # Application
+  APP_ENV: development
+  APP_DEBUG: "true"
+  LOG_LEVEL: DEBUG
+  LOG_FORMAT: json
+
+  # Secrets (override in .env or CI)
+  GROQ_API_KEY: "mock-groq-key"
+  PIXABAY_API_KEY: "mock-pixabay-key"
+
+  # Redirect API calls to the mock-providers service
+  GROQ_BASE_URL: "http://mock-providers:9999/groq/v1"
+  PIXABAY_BASE_URL: "http://mock-providers:9999/pixabay"
+  PIXABAY_VIDEO_BASE_URL: "http://mock-providers:9999/pixabay/videos"
+
+  # Database
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: broll
+  POSTGRES_USER: broll
+  POSTGRES_PASSWORD: broll
+
+  # Redis
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+
+  # Object storage
+  STORAGE_ENDPOINT: "minio:9000"
+  STORAGE_ACCESS_KEY: minioadmin
+  STORAGE_SECRET_KEY: minioadmin
+  STORAGE_USE_SSL: "false"
+  STORAGE_BUCKET_RAW: broll-raw
+  STORAGE_BUCKET_PROCESSED: broll-processed
+  STORAGE_BUCKET_FINAL: broll-final
+
+  # Rate limiting
+  RATE_LIMIT_ENABLED: "true"
+  RATE_LIMIT_REQUESTS: "120"
+  RATE_LIMIT_WINDOW_SECONDS: "60"
+
+  # API token auth (disabled for local dev — enable in staging/prod)
+  API_AUTH_ENABLED: "false"
+  API_TOKENS: ""
+
+  # Idempotency
+  IDEMPOTENCY_TTL_SECONDS: "86400"
+
+  # Jobs
+  AUDIO_MAX_DURATION_SECONDS: "600"
+  AUDIO_MAX_FILE_SIZE_BYTES: "104857600"
+
+  # Callback HMAC (leave blank to skip signing in dev)
+  CALLBACK_HMAC_SECRET: ""
+  CALLBACK_MAX_RETRIES: "3"
+
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: broll
+      POSTGRES_USER: broll
+      POSTGRES_PASSWORD: broll
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U broll -d broll"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # Redis
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # MinIO
+  # ---------------------------------------------------------------------------
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # MinIO console UI
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # MinIO bucket initialiser (runs once, then exits)
+  # ---------------------------------------------------------------------------
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    restart: "no"
+    entrypoint: >
+      /bin/sh -c "
+        mc alias set local http://minio:9000 minioadmin minioadmin;
+        mc mb --ignore-existing local/broll-raw;
+        mc mb --ignore-existing local/broll-processed;
+        mc mb --ignore-existing local/broll-final;
+        mc anonymous set download local/broll-final;
+        echo 'Buckets ready.';
+      "
+
+  # ---------------------------------------------------------------------------
+  # Mock providers (fake Groq + Pixabay)
+  # ---------------------------------------------------------------------------
+  mock-providers:
+    build:
+      context: ./mock_providers
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9999/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # DB migration (Alembic) — runs once before api/worker start
+  # ---------------------------------------------------------------------------
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["python", "-c", "import asyncio; from app.db.session import create_all_tables; asyncio.run(create_all_tables())"]
+    environment:
+      <<: *app-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  # ---------------------------------------------------------------------------
+  # API
+  # ---------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      <<: *app-env
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      mock-providers:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+
+  # ---------------------------------------------------------------------------
+  # Worker
+  # ---------------------------------------------------------------------------
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    command: ["arq", "app.worker.settings.WorkerSettings"]
+    environment:
+      <<: *app-env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      mock-providers:
+        condition: service_healthy
+
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:

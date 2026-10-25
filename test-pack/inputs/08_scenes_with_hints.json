@@ -1,0 +1,39 @@
+{
+  "scenes": [
+    {
+      "text": "The morning sun rises over the mountains.",
+      "visual_hint": "mountain sunrise golden hour",
+      "duration_hint": 5.0
+    },
+    {
+      "text": "Farmers begin their work in the fields.",
+      "visual_hint": "farmers working agricultural field",
+      "duration_hint": 6.0
+    },
+    {
+      "text": "Children walk to school along dusty roads.",
+      "visual_hint": "children walking school rural path",
+      "duration_hint": 5.0
+    },
+    {
+      "text": "A village doctor attends to her patients.",
+      "visual_hint": "doctor patient rural clinic neutral",
+      "duration_hint": 7.0
+    },
+    {
+      "text": "By evening, the community gathers to share a meal.",
+      "visual_hint": "community gathering sharing meal outdoors",
+      "duration_hint": 6.0
+    }
+  ],
+  "aspect_ratios": ["16:9", "9:16"],
+  "style": "cinematic",
+  "captions": {"burn_in": false, "srt": true},
+  "_meta": {
+    "label": "08_scenes_with_hints",
+    "type": "documentary_scenes",
+    "duration_hint": "~29s",
+    "accent": "neutral_en",
+    "notes": "Scenes input path with visual_hint overrides, dual aspect ratio"
+  }
+}

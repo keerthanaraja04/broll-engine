@@ -1,0 +1,42 @@
+{
+  "cold_turnaround_s": 42.7,
+  "warm_turnaround_s": 11.3,
+  "cost_per_minute_usd": 0.00823,
+  "cold_peak_rss_mb": 145.2,
+  "max_clean_concurrency": 4,
+  "concurrency": [
+    {
+      "label": "concurrent_1",
+      "status": "succeeded",
+      "turnaround_s": 42.7,
+      "rss_mb": 157
+    },
+    {
+      "label": "concurrent_2",
+      "status": "succeeded",
+      "turnaround_s": 46.2,
+      "rss_mb": 169
+    },
+    {
+      "label": "concurrent_3",
+      "status": "succeeded",
+      "turnaround_s": 49.7,
+      "rss_mb": 181
+    },
+    {
+      "label": "concurrent_4",
+      "status": "succeeded",
+      "turnaround_s": 53.2,
+      "rss_mb": 193
+    },
+    {
+      "label": "concurrent_5",
+      "status": "failed",
+      "turnaround_s": 56.7,
+      "rss_mb": 205
+    }
+  ],
+  "warnings": [
+    "Mock mode \u2014 all timings and costs are synthetic"
+  ]
+}

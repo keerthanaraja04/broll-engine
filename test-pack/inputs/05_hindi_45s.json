@@ -1,0 +1,15 @@
+{
+  "script": "आज हम जानेंगे कि कृत्रिम बुद्धिमत्ता हमारे जीवन को कैसे बदल रही है। स्वास्थ्य सेवा से लेकर शिक्षा तक, AI हर क्षेत्र में नई संभावनाएं खोल रहा है। भारत में लाखों छात्र अब AI-आधारित शिक्षा प्लेटफॉर्म का उपयोग कर रहे हैं। वैज्ञानिक कह रहे हैं कि अगले दशक में यह तकनीक और भी शक्तिशाली हो जाएगी।",
+  "language": "hi",
+  "aspect_ratios": ["16:9"],
+  "style": "educational",
+  "captions": {"burn_in": true, "srt": true},
+  "_meta": {
+    "label": "05_hindi_45s",
+    "type": "educational",
+    "duration_hint": "~45s",
+    "language": "hi",
+    "accent": "hindi",
+    "notes": "Hindi narration — STT language hint hi, Devanagari captions, English b-roll queries"
+  }
+}

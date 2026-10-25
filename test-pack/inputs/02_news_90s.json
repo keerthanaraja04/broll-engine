@@ -1,0 +1,14 @@
+{
+  "script": "Breaking news: Scientists have announced a major breakthrough in clean energy storage today. Researchers at the National Laboratory have developed a new battery technology that can store three times the energy of current lithium-ion cells at half the cost. The technology uses abundant materials and can be manufactured using existing infrastructure. Industry analysts predict this could accelerate the transition to renewable energy sources significantly. The research paper was published this morning in the journal Nature Energy. Governments and private investors are already expressing interest in funding large-scale pilots. If all goes well, commercial production could begin within five years.",
+  "aspect_ratios": ["16:9", "9:16"],
+  "style": "documentary",
+  "avoid": ["graphic", "violence", "weapons"],
+  "captions": {"burn_in": true, "srt": true},
+  "_meta": {
+    "label": "02_news_90s",
+    "type": "news",
+    "duration_hint": "~90s",
+    "accent": "broadcast_en",
+    "notes": "News style, sensitive flag expected on some scenes, dual aspect ratio"
+  }
+}

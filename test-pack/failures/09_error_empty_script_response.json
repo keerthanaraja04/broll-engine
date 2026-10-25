@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "input": "09_error_empty_script.json",
+    "request": "POST /api/v1/broll/jobs",
+    "http_status": 422,
+    "timestamp": "2026-10-20T14:23:07Z"
+  },
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Request validation failed",
+    "retryable": false,
+    "details": {
+      "errors": [
+        {
+          "loc": ["body", "script"],
+          "msg": "Script must not be blank or whitespace-only",
+          "type": "value_error"
+        }
+      ]
+    }
+  }
+}

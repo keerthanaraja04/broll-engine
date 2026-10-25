@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "input": "POST /api/v1/broll/jobs with aspect_ratios: ['4:3']",
+    "http_status": 422,
+    "timestamp": "2026-10-20T14:24:01Z"
+  },
+  "error": {
+    "code": "BAD_ASPECT_RATIO",
+    "message": "Invalid aspect ratio(s): ['4:3']. Allowed: ['16:9', '9:16', '1:1']",
+    "retryable": false,
+    "details": {
+      "invalid": ["4:3"],
+      "allowed": ["16:9", "9:16", "1:1"]
+    }
+  }
+}

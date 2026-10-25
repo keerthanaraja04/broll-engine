@@ -1,0 +1,14 @@
+{
+  "script": "Introducing CloudSync Pro — the only platform that unifies your team's work in one beautiful, intelligent workspace. Stop wasting time switching between apps. CloudSync brings your documents, tasks, and conversations together seamlessly. With AI-powered search you find anything in seconds. Real-time collaboration means your whole team stays in sync, wherever they are. Trusted by over fifty thousand companies worldwide, CloudSync Pro is the future of work. Start your free trial today. No credit card required.",
+  "aspect_ratios": ["16:9", "9:16", "1:1"],
+  "style": "cinematic",
+  "voice": "Arista-PlayAI",
+  "captions": {"burn_in": false, "srt": false},
+  "_meta": {
+    "label": "03_promo_60s",
+    "type": "promotional",
+    "duration_hint": "~60s",
+    "accent": "american_en",
+    "notes": "Brand promo — brand safety rule should replace brand name in queries, all 3 aspect ratios"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "script": "On a cold Tuesday in November, Maria arrived at the hospital at six in the morning. She had been a nurse for twenty-two years, but nothing quite prepared her for what was coming. The night shift had left a note: Ward B, third bed from the window, critical. She read the chart quickly. Forty-one years old. Teacher. Three children. Her hands moved with practiced certainty — checking vitals, adjusting the drip, speaking quietly to the sleeping figure. By midday the fever had broken. By evening the patient was asking for water, then food, then the names of his children. Maria drove home in the dark. She ate reheated soup standing at the kitchen counter and thought about the strange privilege of her work. Not glamour. Not headlines. Just this: being present when it matters most. She set her alarm for five-thirty, turned off the light, and fell asleep in under a minute.",
+  "aspect_ratios": ["16:9"],
+  "style": "documentary",
+  "captions": {"burn_in": false, "srt": true},
+  "_meta": {
+    "label": "04_story_3min",
+    "type": "narrative_story",
+    "duration_hint": "~3min",
+    "accent": "neutral_en",
+    "notes": "Long narrative, named person (Maria) — safety rule should use neutral visuals, not face search"
+  }
+}

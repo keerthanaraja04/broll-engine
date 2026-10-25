@@ -1,0 +1,51 @@
+{
+  "job_id": "mock-job-tutorial-001",
+  "app_version": "0.1.0",
+  "models": {
+    "stt":  {"provider": "groq", "model": "whisper-large-v3",     "adapter": "groq"},
+    "llm":  {"provider": "groq", "model": "llama3-8b-8192",       "adapter": "groq"},
+    "vlm":  {"provider": "groq", "model": "llava-v1.5-7b-4096-preview", "adapter": "groq"},
+    "tts":  {"provider": "groq", "model": "playai-tts",           "adapter": "groq"}
+  },
+  "settings": {
+    "aspect_ratios": ["16:9"],
+    "target_fps": 30,
+    "target_resolution": "1920x1080",
+    "scene_min_duration": 3.0,
+    "scene_max_duration": 8.0,
+    "clip_threshold_pixabay_video": 3.8,
+    "clip_threshold_ken_burns": 3.0,
+    "reframe_method": "saliency",
+    "brightness_match": true
+  },
+  "seed": null,
+  "stage_timings": {
+    "input": 1.23,
+    "scene_planning": 2.87,
+    "clip_selection": 18.4,
+    "render": 9.12,
+    "output": 0.31
+  },
+  "cost_estimate": {
+    "total_usd": 0.00712,
+    "breakdown": {
+      "stt_whisper": 0.00133,
+      "llm_chat": 0.0006,
+      "vlm_score": 0.003,
+      "tts": 0.00165,
+      "pixabay_search": 0.0,
+      "ffmpeg_render": 0.0
+    },
+    "currency": "USD"
+  },
+  "warnings": [],
+  "licence_summary": {
+    "all_licensed": true,
+    "all_attributed": true,
+    "all_commercial_use": true,
+    "clips_checked": 3,
+    "licences_found": ["Pixabay Content License"],
+    "missing_licence": [],
+    "missing_attribution": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "spearman_rho": null,
+  "mae": null,
+  "pct_within_1": null,
+  "n_human_rated": 3,
+  "warnings": [],
+  "scenes": [
+    {
+      "scene_index": 0,
+      "eval_score": 3.0,
+      "human_score": 4.0,
+      "selection_score": 4.1,
+      "clip_id": "pixabay:4521098"
+    },
+    {
+      "scene_index": 1,
+      "eval_score": 4.0,
+      "human_score": 3.0,
+      "selection_score": 4.3,
+      "clip_id": "pixabay:5203441"
+    },
+    {
+      "scene_index": 2,
+      "eval_score": 1.0,
+      "human_score": 5.0,
+      "selection_score": 3.9,
+      "clip_id": "pixabay:4891203"
+    }
+  ]
+}

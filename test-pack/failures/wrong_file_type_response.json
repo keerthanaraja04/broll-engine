@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "input": "POST /api/v1/broll/jobs/upload with file: document.pdf",
+    "http_status": 415,
+    "timestamp": "2026-10-20T14:25:12Z"
+  },
+  "error": {
+    "code": "WRONG_FILE_TYPE",
+    "message": "File type '.pdf' is not accepted. Allowed: mp3, mp4, wav, m4a, ogg, webm, flac",
+    "retryable": false,
+    "details": {
+      "extension": "pdf",
+      "allowed": ["mp3", "mp4", "wav", "m4a", "ogg", "webm", "flac"]
+    }
+  }
+}

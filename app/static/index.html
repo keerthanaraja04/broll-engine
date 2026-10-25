@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOICEROLL AI &bull; Autonomous Cinematic B-Roll & Voiceover Studio</title>
+  <meta name="description" content="State-of-the-art AI Video Production Studio. Transform scripts, scenes, or audio into stunning cinematic videos with Pixabay stock footage and neural voiceovers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Ambient Glow Background -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main App Shell -->
+  <div class="app-shell">
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+      <div class="brand-area">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="12" r="2.5"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">
+            VOICEROLL <span class="badge-pro">STUDIO PRO</span>
+          </div>
+          <div class="brand-sub">Autonomous AI B-Roll & Neural Voiceover Engine</div>
+        </div>
+      </div>
+
+      <!-- Live Engine Telemetry Pills -->
+      <div class="telemetry-bar">
+        <div class="telemetry-pill pill-active" title="Pixabay Video API Connected">
+          <span class="status-dot"></span>
+          <span class="pill-label">PIXABAY 1080P</span>
+        </div>
+        <div class="telemetry-pill pill-active" title="Microsoft Edge Neural TTS Active">
+          <span class="status-dot"></span>
+          <span class="pill-label">EDGE-TTS</span>
+        </div>
+        <div class="telemetry-pill pill-active" title="FFmpeg 7.1 Multi-Threaded Engine">
+          <span class="status-dot"></span>
+          <span class="pill-label">FFMPEG 7.1</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnOpenStatus" class="btn-ghost" title="Engine Diagnostics">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          Diagnostics
+        </button>
+        <a href="/docs" target="_blank" class="btn-ghost" title="Interactive OpenAPI Docs">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          API
+        </a>
+        <button id="btnRefreshHistory" class="btn-ghost" title="Sync Recent Jobs">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+          Sync
+        </button>
+      </div>
+    </header>
+
+    <!-- Studio Main Workspace -->
+    <main class="studio-workspace">
+
+      <!-- LEFT COLUMN: PRODUCTION DECK -->
+      <section class="production-deck glass-card">
+
+        <!-- Mode Selector Tabs -->
+        <div class="mode-tabs">
+          <button class="mode-tab active" data-mode="script">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Script-to-Video
+          </button>
+          <button class="mode-tab" data-mode="scenes">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+            Scene Director
+          </button>
+          <button class="mode-tab" data-mode="upload">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            Voice Upload
+          </button>
+        </div>
+
+        <!-- MODE 1: SCRIPT-TO-VIDEO -->
+        <div id="modeScript" class="mode-content active">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Narrative Script</h2>
+              <p class="section-desc">Write or paste your script. Our engine automatically splits sentences into cinematic scenes, generates neural voiceover, and matches Pixabay stock video.</p>
+            </div>
+          </div>
+
+          <!-- Quick Narrative Story Presets -->
+          <div class="presets-row">
+            <span class="preset-label">Narrative Stories:</span>
+            <button type="button" class="preset-chip" data-preset="wolf">🐺 Lone Wolf's Journey</button>
+            <button type="button" class="preset-chip" data-preset="voyager">⛵ Ocean Voyager</button>
+            <button type="button" class="preset-chip" data-preset="sanctuary">🌿 Hidden Sanctuary</button>
+            <button type="button" class="preset-chip" data-preset="summit">🏔️ Mountain Ascent</button>
+            <button type="button" class="preset-chip" data-preset="cyberpunk">⚡ Neon Nightrunner</button>
+            <button type="button" id="btnNarrateStory" class="preset-chip btn-glow" title="Narrate a new continuous story with full narrative flow">✨ Narrate Story</button>
+          </div>
+
+          <div class="textarea-wrapper">
+            <textarea id="inputScript" rows="7" placeholder="Type or paste your narrative script here... Each sentence will become a distinct cinematic scene paired with matching HD B-roll and synchronized speech."></textarea>
+            <div class="textarea-footer">
+              <div class="script-stats">
+                <span id="charCount">0</span> chars &bull; <span id="wordCount">0</span> words &bull; ~<span id="estDuration">0s</span> est. duration
+              </div>
+              <button type="button" id="btnClearScript" class="btn-micro" title="Clear script">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 2: SCENE DIRECTOR -->
+        <div id="modeScenes" class="mode-content">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Multi-Scene Director</h2>
+              <p class="section-desc">Fine-tune each individual scene with custom narration lines, exact Pixabay search queries, and duration timings.</p>
+            </div>
+            <button type="button" id="btnAddScene" class="btn-secondary btn-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Add Scene
+            </button>
+          </div>
+
+          <!-- Dynamic Scene Cards Container -->
+          <div id="scenesContainer" class="scenes-list">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- MODE 3: AUDIO UPLOAD -->
+        <div id="modeUpload" class="mode-content">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Audio / Podcast Voiceover Upload</h2>
+              <p class="section-desc">Upload a recorded voiceover track (.mp3, .wav, .m4a). The engine transcribes speech, breaks down timing, and overlays matching B-roll footage.</p>
+            </div>
+          </div>
+
+          <div id="dropzone" class="upload-dropzone">
+            <input type="file" id="audioFileInput" accept=".mp3,.wav,.m4a,.aac,.ogg,.flac" class="file-input-hidden">
+            <div class="dropzone-inner">
+              <div class="dropzone-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              </div>
+              <div class="dropzone-text">
+                <span class="highlight">Click to upload</span> or drag and drop your voice file
+              </div>
+              <div class="dropzone-hints">MP3, WAV, M4A, AAC up to 100MB</div>
+            </div>
+          </div>
+
+          <div id="selectedAudioCard" class="selected-audio-card hidden">
+            <div class="audio-file-info">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+              <div>
+                <div id="audioFileName" class="file-name">recording.mp3</div>
+                <div id="audioFileSize" class="file-size">2.4 MB</div>
+              </div>
+            </div>
+            <audio id="audioPreview" controls class="mini-audio-player"></audio>
+            <button type="button" id="btnRemoveAudio" class="btn-micro btn-danger">Remove</button>
+          </div>
+        </div>
+
+        <!-- PRODUCTION CONFIGURATION SETTINGS -->
+        <div class="production-settings">
+          <div class="settings-title">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            Studio Video & Voice Configuration
+          </div>
+
+          <div class="settings-grid">
+
+            <!-- Aspect Ratio Selector -->
+            <div class="setting-item full-width">
+              <label class="setting-label">Target Format & Aspect Ratio</label>
+              <div class="aspect-ratio-selector">
+                <button type="button" class="aspect-btn active" data-ratio="16:9">
+                  <span class="ratio-box ratio-16-9"></span>
+                  <div class="ratio-meta">
+                    <span class="ratio-val">16:9 Landscape</span>
+                    <span class="ratio-desc">YouTube &bull; Desktop (1920&times;1080)</span>
+                  </div>
+                </button>
+                <button type="button" class="aspect-btn" data-ratio="9:16">
+                  <span class="ratio-box ratio-9-16"></span>
+                  <div class="ratio-meta">
+                    <span class="ratio-val">9:16 Vertical</span>
+                    <span class="ratio-desc">TikTok &bull; Reels &bull; Shorts (1080&times;1920)</span>
+                  </div>
+                </button>
+                <button type="button" class="aspect-btn" data-ratio="1:1">
+                  <span class="ratio-box ratio-1-1"></span>
+                  <div class="ratio-meta">
+                    <span class="ratio-val">1:1 Square</span>
+                    <span class="ratio-desc">Instagram &bull; LinkedIn (1080&times;1080)</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Voiceover Selector -->
+            <div class="setting-item">
+              <label for="selectVoice" class="setting-label">Neural Voiceover Actor</label>
+              <div class="select-wrapper">
+                <select id="selectVoice">
+                  <option value="en-US-AriaNeural" selected>Aria (US Female &bull; Natural & Crisp)</option>
+                  <option value="en-US-GuyNeural">Guy (US Male &bull; Authoritative & Deep)</option>
+                  <option value="en-US-JennyNeural">Jenny (US Female &bull; Warm & Friendly)</option>
+                  <option value="en-US-ChristopherNeural">Christopher (US Male &bull; Broadcaster)</option>
+                  <option value="en-GB-SoniaNeural">Sonia (British Female &bull; Sophisticated)</option>
+                  <option value="en-GB-RyanNeural">Ryan (British Male &bull; Modern Narrative)</option>
+                  <option value="en-US-AnaNeural">Ana (US Female &bull; Energetic)</option>
+                  <option value="none">No Voiceover (Silent B-Roll Only)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Visual Style Preset -->
+            <div class="setting-item">
+              <label for="selectStyle" class="setting-label">Cinematic Visual Aesthetic</label>
+              <div class="select-wrapper">
+                <select id="selectStyle">
+                  <option value="cinematic" selected>Cinematic (High Dynamic & Epic)</option>
+                  <option value="vibrant">Vibrant & Saturated</option>
+                  <option value="nature">Lush Nature & Landscapes</option>
+                  <option value="dramatic">Dramatic & Moody</option>
+                  <option value="documentary">Realistic Documentary</option>
+                  <option value="minimalist">Clean & Minimalist</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Subtitle Burn-in & SRT Switches -->
+            <div class="setting-item full-width">
+              <label class="setting-label">Captions & Subtitle Styling</label>
+              <div class="switches-row">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="checkBurnSubtitles" checked>
+                  <span class="slider"></span>
+                  <span class="toggle-label">Burn High-Contrast Subtitles onto Video</span>
+                </label>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="checkGenerateSrt" checked>
+                  <span class="slider"></span>
+                  <span class="toggle-label">Generate Downloadable .SRT Captions</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Excluded Keywords -->
+            <div class="setting-item full-width">
+              <label for="inputAvoid" class="setting-label">Exclude Terms (Filter Out)</label>
+              <input type="text" id="inputAvoid" value="watermark, blurry, low quality, logo" placeholder="e.g. watermark, cartoon, blurry">
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Primary Generate Action Button -->
+        <div class="cta-row">
+          <button type="button" id="btnGenerate" class="btn-primary-gradient">
+            <span class="btn-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            </span>
+            <span class="btn-text">Generate Cinematic Video</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: STUDIO MONITOR & PLAYER -->
+      <section class="studio-monitor glass-card">
+
+        <div class="monitor-header">
+          <div class="monitor-title-group">
+            <span class="live-dot"></span>
+            <h2 class="section-title">Studio Monitor</h2>
+            <span id="activeJobBadge" class="job-id-badge hidden">ID: <span id="activeJobIdText">---</span></span>
+          </div>
+          <div class="monitor-controls">
+            <span id="currentStatusBadge" class="badge-status badge-idle">IDLE</span>
+          </div>
+        </div>
+
+        <!-- View 1: Idle Screen -->
+        <div id="monitorIdleView" class="monitor-view">
+          <div class="idle-illustration">
+            <div class="orbital-ring">
+              <div class="orbital-dot"></div>
+            </div>
+            <svg class="idle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+              <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+          </div>
+          <h3 class="idle-title">Ready for Production</h3>
+          <p class="idle-desc">Choose a mode on the left (Script, Scenes, or Audio), configure your settings, and click Generate to start rendering your video.</p>
+
+          <div class="feature-bullets">
+            <div class="bullet-item">
+              <span class="bullet-check">&check;</span>
+              <span>HD 1080p Stock Footage directly from Pixabay</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-check">&check;</span>
+              <span>Ultra-realistic Microsoft Edge Neural Voiceover</span>
+            </div>
+            <div class="bullet-item">
+              <span class="bullet-check">&check;</span>
+              <span>Multi-threaded FFmpeg encoding with burned-in subtitles</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 2: Live Processing Stepper Screen -->
+        <div id="monitorProcessingView" class="monitor-view hidden">
+          <div class="processing-header">
+            <div class="processing-pulse-orb"></div>
+            <div>
+              <h3 id="processingStageTitle" class="processing-title">Synthesizing Speech...</h3>
+              <p id="processingStageDetail" class="processing-subtitle">Generating crystal-clear neural voiceover for scene timings...</p>
+            </div>
+            <div class="elapsed-timer">
+              <span class="timer-label">ELAPSED</span>
+              <span id="elapsedTime" class="timer-digits">00:00</span>
+            </div>
+          </div>
+
+          <!-- Glowing Progress Bar -->
+          <div class="progress-bar-container">
+            <div id="progressBarFill" class="progress-bar-fill" style="width: 15%;">
+              <span class="progress-shimmer"></span>
+            </div>
+            <div class="progress-info">
+              <span id="progressPercentText" class="progress-percent">15%</span>
+              <span id="progressStageName" class="progress-stage">transcribing</span>
+            </div>
+          </div>
+
+          <!-- Pipeline Stepper Nodes -->
+          <div class="pipeline-stepper">
+            <div class="step-node active" data-step="pending">
+              <div class="step-icon">1</div>
+              <div class="step-text">Ingestion</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-node" data-step="transcribing">
+              <div class="step-icon">2</div>
+              <div class="step-text">Voice Synthesis</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-node" data-step="extracting_keywords">
+              <div class="step-icon">3</div>
+              <div class="step-text">Scene Parsing</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-node" data-step="searching_videos">
+              <div class="step-icon">4</div>
+              <div class="step-text">Pixabay Search</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-node" data-step="assembling_media">
+              <div class="step-icon">5</div>
+              <div class="step-text">FFmpeg Encode</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step-node" data-step="done">
+              <div class="step-icon">6</div>
+              <div class="step-text">Ready</div>
+            </div>
+          </div>
+
+          <!-- Live Activity Log Stream -->
+          <div class="activity-log-box">
+            <div class="log-box-header">Live Telemetry Log</div>
+            <div id="activityLogs" class="activity-logs">
+              <div class="log-entry log-info">[00:00:00] Job submitted to pipeline engine</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View 3: Completed Video Player & Studio Tools -->
+        <div id="monitorCompletedView" class="monitor-view hidden">
+
+          <div class="player-wrapper aspect-16-9" id="playerWrapper">
+            <video id="studioVideoPlayer" controls playsinline preload="metadata">
+              <source id="videoPlayerSource" src="" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <!-- Toolstrip Actions -->
+          <div class="player-toolstrip">
+            <a id="btnDownloadVideo" href="#" download class="btn-action primary" title="Download High Definition MP4 Video">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Download MP4
+            </a>
+            <a id="btnDownloadSrt" href="#" download class="btn-action secondary" title="Download Subtitle File">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              Download SRT
+            </a>
+            <button type="button" id="btnCopyVideoUrl" class="btn-action secondary" title="Copy Direct Video Link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              Copy Link
+            </button>
+            <button type="button" id="btnRemixInDirector" class="btn-action secondary" title="Load scenes into Scene Director">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              Edit in Director
+            </button>
+          </div>
+
+          <!-- Inspector Tabs -->
+          <div class="inspector-tabs">
+            <button class="inspector-tab active" data-tab="scenes">🎬 Clips & Relevance (≥ 4.0)</button>
+            <button class="inspector-tab" data-tab="srt">Captions (.SRT)</button>
+            <button class="inspector-tab" data-tab="telemetry">Job Metadata</button>
+          </div>
+
+          <!-- Inspector Content 1: Scene Timeline -->
+          <div id="inspectorScenes" class="inspector-content active">
+            <div id="completedScenesList" class="completed-scenes-timeline">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Inspector Content 2: SRT Subtitles -->
+          <div id="inspectorSrt" class="inspector-content">
+            <pre id="srtContentBox" class="srt-box">Loading subtitles...</pre>
+          </div>
+
+          <!-- Inspector Content 3: Telemetry & JSON -->
+          <div id="inspectorTelemetry" class="inspector-content">
+            <div id="jobTelemetryGrid" class="telemetry-grid">
+              <!-- Key value stats -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- BOTTOM SECTION: RECENT GENERATIONS HISTORY -->
+    <section class="history-section glass-card">
+      <div class="history-header">
+        <div class="history-title-group">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <h2 class="section-title">Production Library & Recent Generations</h2>
+          <span id="historyCountBadge" class="badge-count">0</span>
+        </div>
+        <div class="history-actions">
+          <button type="button" id="btnClearHistory" class="btn-micro" title="Clear local job cache">Clear View</button>
+        </div>
+      </div>
+
+      <!-- History Grid Cards -->
+      <div id="historyGrid" class="history-grid">
+        <div class="history-empty">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line></svg>
+          <p>No recent productions found. Create your first cinematic video above!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div>VOICEROLL STUDIO PRO &bull; Powered by Pixabay Stock API, Edge-TTS &amp; FFmpeg 7.1</div>
+      <div class="footer-links">
+        <a href="/docs" target="_blank">API Specification</a> &bull;
+        <a href="/health" target="_blank">Health Endpoint</a> &bull;
+        <span>Version 1.0.0</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- DIAGNOSTICS & SYSTEM STATUS MODAL -->
+  <div id="modalStatus" class="modal-backdrop hidden">
+    <div class="modal-dialog glass-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Engine Diagnostics & Configuration</h3>
+        <button type="button" id="btnCloseModal" class="btn-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="status-list">
+          <div class="status-row">
+            <span class="status-item-name">Pixabay Video API</span>
+            <span class="status-tag status-success">Active &bull; Key Connected</span>
+          </div>
+          <div class="status-row">
+            <span class="status-item-name">Neural Voiceover Engine</span>
+            <span class="status-tag status-success">Edge-TTS Online</span>
+          </div>
+          <div class="status-row">
+            <span class="status-item-name">FFmpeg Transcoder</span>
+            <span class="status-tag status-success">FFmpeg 7.1 Multi-Threaded</span>
+          </div>
+          <div class="status-row">
+            <span class="status-item-name">Subtitle Subsystem</span>
+            <span class="status-tag status-success">Burned-in + SRT Enabled</span>
+          </div>
+          <div class="status-row">
+            <span class="status-item-name">Storage Subsystem</span>
+            <span class="status-tag status-info">Local Media Cache Mounted</span>
+          </div>
+          <div class="status-row">
+            <span class="status-item-name">FastAPI Dev Server</span>
+            <span class="status-tag status-success">Port 8000 (Active)</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnCloseModalBtn" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

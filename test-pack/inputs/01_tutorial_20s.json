@@ -1,0 +1,13 @@
+{
+  "script": "In this tutorial you will learn how to set up a Python virtual environment in under two minutes. First, open your terminal and type python dash m venv dot venv. Then activate it with source dot venv slash bin slash activate on Mac or Linux.",
+  "aspect_ratios": ["16:9"],
+  "style": "educational",
+  "captions": {"burn_in": false, "srt": true},
+  "_meta": {
+    "label": "01_tutorial_20s",
+    "type": "tutorial",
+    "duration_hint": "~20s",
+    "accent": "neutral_en",
+    "notes": "Short form, technical vocabulary, 16:9 only, SRT requested"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "script": "Global carbon emissions reached forty-two point three billion tonnes in the past year — a record high. Sea levels have risen by three point three millimetres annually since 1993. Scientists project a further one to two metre rise by 2100 under current trajectories. One hundred and ninety-five countries signed the Paris Agreement, committing to limit warming to one point five degrees Celsius. Yet renewable energy still accounts for only twenty-nine percent of global electricity generation. The economic cost of climate-related disasters exceeded two hundred and seventy billion dollars last year alone. Every year we delay action increases the price of adaptation by three hundred billion dollars.",
+  "aspect_ratios": ["16:9"],
+  "style": "documentary",
+  "captions": {"burn_in": false, "srt": true},
+  "_meta": {
+    "label": "07_abstract_stats_2min",
+    "type": "data_documentary",
+    "duration_hint": "~2min",
+    "accent": "neutral_en",
+    "notes": "Heavy statistics — has_numbers=true on most scenes, data-card fallback expected for some"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "script": "தொழில்நுட்பம் நம் வாழ்க்கையை மாற்றி வருகிறது. செயற்கை நுண்ணறிவு மருத்துவம், கல்வி மற்றும் வணிகம் என அனைத்து துறைகளிலும் புதிய வாய்ப்புகளை உருவாக்குகிறது. தமிழ்நாட்டில் பல நிறுவனங்கள் இந்த தொழில்நுட்பத்தை தங்கள் சேவைகளில் இணைத்து வருகின்றன.",
+  "language": "ta",
+  "aspect_ratios": ["16:9", "1:1"],
+  "style": "documentary",
+  "captions": {"burn_in": true, "srt": true},
+  "_meta": {
+    "label": "06_tamil_30s",
+    "type": "documentary",
+    "duration_hint": "~30s",
+    "language": "ta",
+    "accent": "tamil",
+    "notes": "Tamil narration — STT language hint ta, Tamil-script captions, English b-roll queries"
+  }
+}

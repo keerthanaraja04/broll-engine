@@ -1,0 +1,684 @@
+openapi: 3.1.0
+info:
+  title: broll-engine
+  version: 0.1.0
+paths:
+  /health:
+    get:
+      tags:
+      - observability
+      summary: Liveness probe
+      operationId: health_health_get
+      responses:
+        '200':
+          description: Service is alive
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Health Health Get
+  /ready:
+    get:
+      tags:
+      - observability
+      summary: Readiness probe
+      operationId: ready_ready_get
+      responses:
+        '200':
+          description: Dependency health summary
+          content:
+            application/json:
+              schema: {}
+  /api/v1/broll/jobs:
+    post:
+      tags:
+      - jobs
+      summary: Submit a new b-roll generation job (JSON)
+      operationId: submit_job_json_api_v1_broll_jobs_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobCreateRequest'
+      responses:
+        '202':
+          description: Job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreateResponse'
+        '409':
+          description: Idempotency key conflict
+        '415':
+          description: Unsupported audio file type
+        '422':
+          description: Validation error (bad ratio, empty script, audio too long)
+        '429':
+          description: Rate limit exceeded
+  /api/v1/broll/jobs/upload:
+    post:
+      tags:
+      - jobs
+      summary: Submit a new b-roll generation job (multipart audio upload)
+      operationId: submit_job_upload_api_v1_broll_jobs_upload_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_submit_job_upload_api_v1_broll_jobs_upload_post'
+      responses:
+        '202':
+          description: Job accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreateResponse'
+        '409':
+          description: Idempotency key conflict
+        '413':
+          description: Audio file too large
+        '415':
+          description: Unsupported audio file type
+        '422':
+          description: Validation error
+        '429':
+          description: Rate limit exceeded
+  /api/v1/jobs:
+    get:
+      tags:
+      - jobs
+      summary: List recent b-roll generation jobs
+      operationId: list_recent_jobs_api_v1_jobs_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 25
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/jobs/{job_id}:
+    get:
+      tags:
+      - jobs
+      summary: Get job status and result links
+      operationId: get_job_status_api_v1_jobs__job_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Job found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusResponse'
+        '404':
+          description: Job not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/jobs/{job_id}/video:
+    get:
+      tags:
+      - jobs
+      summary: Download or stream the generated video file
+      operationId: get_job_video_api_v1_jobs__job_id__video_get
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/jobs/{job_id}/srt:
+    get:
+      tags:
+      - jobs
+      summary: Download the generated subtitles (SRT) file
+      operationId: get_job_srt_api_v1_jobs__job_id__srt_get
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/jobs/{job_id}/swap:
+    post:
+      tags:
+      - jobs
+      summary: Swap the clip for one scene and re-splice the video
+      operationId: swap_scene_clip_api_v1_jobs__job_id__swap_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwapRequest'
+      responses:
+        '200':
+          description: Swap complete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapResponse'
+        '404':
+          description: Job or scene not found
+        '422':
+          description: Validation error
+components:
+  schemas:
+    Body_submit_job_upload_api_v1_broll_jobs_upload_post:
+      properties:
+        audio:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Audio
+          description: Audio file to transcribe
+        voice:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Voice
+        aspect_ratios:
+          type: string
+          title: Aspect Ratios
+          description: Comma-separated aspect ratios, e.g. '16:9,9:16'
+          default: '16:9'
+        style:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Style
+        avoid:
+          type: string
+          title: Avoid
+          description: Comma-separated terms to exclude
+          default: ''
+        burn_in:
+          type: boolean
+          title: Burn In
+          default: false
+        srt:
+          type: boolean
+          title: Srt
+          default: false
+        callback_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Callback Url
+      type: object
+      required:
+      - audio
+      title: Body_submit_job_upload_api_v1_broll_jobs_upload_post
+    CaptionOptions:
+      properties:
+        burn_in:
+          type: boolean
+          title: Burn In
+          description: Burn subtitles directly into the video frames
+          default: false
+        srt:
+          type: boolean
+          title: Srt
+          description: Also generate a .srt subtitle file
+          default: false
+      type: object
+      title: CaptionOptions
+      description: Controls subtitle/caption output.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    JobCreateRequest:
+      properties:
+        audio_url:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Audio Url
+          description: Publicly accessible URL of an audio file
+        script:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Script
+          description: Plain-text script to generate b-roll for
+        scenes:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SceneInput'
+            type: array
+            minItems: 1
+          - type: 'null'
+          title: Scenes
+          description: Structured list of scenes
+        voice:
+          anyOf:
+          - type: string
+            maxLength: 128
+          - type: 'null'
+          title: Voice
+          description: Voice/speaker identifier
+        aspect_ratios:
+          items:
+            type: string
+            enum:
+            - '16:9'
+            - '9:16'
+            - '1:1'
+          type: array
+          minItems: 1
+          title: Aspect Ratios
+          description: One or more output aspect ratios
+          default:
+          - '16:9'
+        style:
+          anyOf:
+          - type: string
+            maxLength: 128
+          - type: 'null'
+          title: Style
+          description: Visual style hint for video search
+        avoid:
+          items:
+            type: string
+          type: array
+          title: Avoid
+          description: Terms to exclude from video search results
+        captions:
+          $ref: '#/components/schemas/CaptionOptions'
+        callback_url:
+          anyOf:
+          - type: string
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: Callback Url
+          description: Webhook URL called when the job finishes (POST with job payload)
+      type: object
+      title: JobCreateRequest
+      description: 'JSON body for POST /api/v1/broll/jobs.
+
+
+        Exactly ONE of audio_url, script, or scenes must be supplied.
+
+        (Multipart audio upload is handled separately in the route layer.)'
+    JobCreateResponse:
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          title: Job Id
+        status:
+          type: string
+          title: Status
+          default: queued
+        message:
+          type: string
+          title: Message
+          default: Job accepted and queued for processing
+      type: object
+      required:
+      - job_id
+      title: JobCreateResponse
+    JobResultLinks:
+      properties:
+        video_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Video Url
+        srt_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Srt Url
+        thumbnail_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thumbnail Url
+        scenes:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Scenes
+        average_relevance_score:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Average Relevance Score
+      type: object
+      title: JobResultLinks
+      description: Presigned download URLs and scene clip details produced after a successful job.
+    JobStage:
+      type: string
+      enum:
+      - pending
+      - uploading
+      - transcribing
+      - extracting_keywords
+      - searching_videos
+      - filtering_clips
+      - assembling_media
+      - uploading_result
+      - done
+      - error
+      title: JobStage
+    JobStatus:
+      type: string
+      enum:
+      - queued
+      - running
+      - succeeded
+      - failed
+      title: JobStatus
+    JobStatusResponse:
+      properties:
+        job_id:
+          type: string
+          format: uuid
+          title: Job Id
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        stage:
+          $ref: '#/components/schemas/JobStage'
+        progress:
+          type: integer
+          maximum: 100.0
+          minimum: 0.0
+          title: Progress
+          description: Completion percentage 0–100
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/JobResultLinks'
+          - type: 'null'
+        error_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Code
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        created_at:
+          type: string
+          title: Created At
+        updated_at:
+          type: string
+          title: Updated At
+        started_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Started At
+        finished_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Finished At
+      type: object
+      required:
+      - job_id
+      - status
+      - stage
+      - progress
+      - created_at
+      - updated_at
+      title: JobStatusResponse
+    SceneInput:
+      properties:
+        text:
+          type: string
+          minLength: 1
+          title: Text
+          description: Scene narration / subtitle text
+        duration_hint_seconds:
+          anyOf:
+          - type: number
+            maximum: 120.0
+            minimum: 0.5
+          - type: 'null'
+          title: Duration Hint Seconds
+          description: Approximate duration for this scene
+        duration:
+          anyOf:
+          - type: number
+            maximum: 120.0
+            minimum: 0.5
+          - type: 'null'
+          title: Duration
+          description: Alias for duration_hint_seconds
+        keywords:
+          items:
+            type: string
+          type: array
+          title: Keywords
+          description: Search keywords for this scene
+        visual_hint:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Visual Hint
+          description: Visual description or hint for b-roll search
+      type: object
+      required:
+      - text
+      title: SceneInput
+      description: A single scene when sending structured scenes instead of a transcript.
+    SwapRequest:
+      properties:
+        scene_index:
+          type: integer
+          minimum: 0.0
+          title: Scene Index
+          description: 0-based scene index to swap
+        clip_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Clip Id
+          description: Exact clip ID to use (must already be in ClipStore)
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+          description: Search query; FootageRouter will fetch a fresh clip
+        aspect_ratio:
+          type: string
+          title: Aspect Ratio
+          description: Aspect ratio of the output
+          default: '16:9'
+      type: object
+      required:
+      - scene_index
+      title: SwapRequest
+    SwapResponse:
+      properties:
+        job_id:
+          type: string
+          title: Job Id
+        scene_index:
+          type: integer
+          title: Scene Index
+        new_clip_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Clip Id
+        swap_time_seconds:
+          type: number
+          title: Swap Time Seconds
+        original_render_time_seconds:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Render Time Seconds
+        speedup_factor:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Speedup Factor
+        final_video_object:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Final Video Object
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+      type: object
+      required:
+      - job_id
+      - scene_index
+      - new_clip_id
+      - swap_time_seconds
+      - original_render_time_seconds
+      - speedup_factor
+      - final_video_object
+      - warnings
+      title: SwapResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

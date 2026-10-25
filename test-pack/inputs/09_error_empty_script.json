@@ -1,0 +1,11 @@
+{
+  "script": "   ",
+  "aspect_ratios": ["16:9"],
+  "_meta": {
+    "label": "09_error_empty_script",
+    "type": "error_case",
+    "expected_error": "EMPTY_SCRIPT",
+    "expected_http": 422,
+    "notes": "Intentional failure case — validates EMPTY_SCRIPT error code and 422 response shape"
+  }
+}

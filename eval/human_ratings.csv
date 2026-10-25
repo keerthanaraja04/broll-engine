@@ -1,0 +1,31 @@
+scene_index,human_score,rater,notes
+0,4,rater_1,Clear city footage well matched
+1,3,rater_1,Acceptable but slightly generic
+2,5,rater_1,Perfect match to narration
+3,2,rater_1,Too abstract for the text
+4,4,rater_1,Good visual complement
+5,3,rater_2,Decent pacing match
+6,4,rater_2,Strong contextual relevance
+7,2,rater_2,Mismatched mood
+8,5,rater_2,Excellent visual storytelling
+9,3,rater_2,Neutral adequacy
+10,4,rater_1,Relevant and engaging
+11,3,rater_1,Acceptable stock footage
+12,2,rater_1,Too slow for the narration tempo
+13,4,rater_2,Good thematic match
+14,5,rater_2,Ideal illustration of concept
+15,3,rater_2,Functional but uninspired
+16,4,rater_1,Strong visual metaphor
+17,3,rater_1,Average relevance
+18,4,rater_2,Well chosen imagery
+19,5,rater_2,Perfect tone and content match
+20,2,rater_1,Graphic content — wrong tone
+21,3,rater_1,Passable but off-brand
+22,4,rater_2,Clear and relevant
+23,3,rater_2,Generic but acceptable
+24,4,rater_1,Good cultural fit
+25,5,rater_1,Outstanding visual match
+26,2,rater_2,Abstract imagery confuses meaning
+27,4,rater_2,Solid contextual support
+28,3,rater_1,Middle-of-the-road choice
+29,5,rater_1,Excellent narrative visual
